@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        /*
+        promise：
+          1.解决异步编程问题
+          2.在then里就是同步，不在then里就是异步。
+        如何使用promise？
+
+        new  promise(function(resolve,reject){})
+        then(成功函数,失败函数)
+            第一个then  （微任务）
+                成功函数里面的参数就是异步的结果
+
+            第二个then （微任务）
+                第一个then的返回值
+
+
+
+
+        then中包含2个函数，第一个函数是成功之后的回调，第二个函数是失败之后的回调
+        finally：不管成功还是失败都会进的回调函数
+   
+       JSON.parse(),把JSON转成对象
+
+        
+   
+   
+    */
+        // let a = 10
+        //     (function a() {
+        //         console.log(a)
+        //         let a = 20
+        //         console.log(a)
+        //     })()
+
+        let p = new Primse((resolve, reject) => {
+            setTimeout(() => {
+                resolve({
+                    data: '{"name":"珠峰"}',
+                    json: function () {
+                        return JSON.parse(this.data);
+                    }
+                })
+            }, 2000)     
+        })
+        //第一个then是成功函数的异步结果，是resolve的回调函数，d={},return d.json()=>{}.json方法的data。得到{"name":'珠峰'}
+        p.then(function(d){
+            return d.json()
+        })
+        //第二个then的到的是第一个then的返回结果
+        p.then(function(d){
+            console.log(d.name);
+        })
+
+
+
+
+    </script>
+
+</body>
+
+</html>

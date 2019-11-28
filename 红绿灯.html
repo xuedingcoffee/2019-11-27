@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+       
+        //.then()   里面即使没有返回值，只要代码没有错误，也会执行 
+        function red() {
+            console.log('red');
+        }
+        function green() {
+            console.log('green');
+        }
+        function yellow() {
+            console.log('yellow');
+        }
+
+
+        function fn() {
+            let p = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve();
+                }, 3000)
+            })
+            p.then(() => {
+                red();
+                return new Promise(function (resolve) {
+                    setTimeout(() => {
+                        resolve();
+                    }, 1000)
+                });
+            }).then(() => {
+                green();
+                return new Promise(function (resolve) {
+                    setTimeout(() => {
+                        resolve();
+                    }, 2000)
+                })
+            }).then(() => {
+                yellow();
+            })
+
+        }
+        fn();
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
